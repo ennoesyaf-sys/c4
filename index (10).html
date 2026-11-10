@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<title>Sprinter A · Unit C · Lesson 4</title>
+<style>
+:root{--bg:#eceee6;--card:#f8f8f3;--ink:#2d2b38;--pri:#5e3d78;--acc:#e0a100;--ok:#1f7a55;--bad:#b83a45;--mut:#625d70;--ln:#d6d9cd}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1a24;--card:#252230;--ink:#e6e2ee;--pri:#bb99d6;--acc:#e9b949;--ok:#2b8a62;--bad:#c9505b;--mut:#a9a2bb;--ln:#38344a}}
+*{box-sizing:border-box}
+body{margin:0;font:22px/1.65 "Atkinson Hyperlegible",Verdana,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-top:env(safe-area-inset-top,0px)}
+header,footer{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--ln)}
+footer{position:sticky;bottom:0;border:0;border-top:1px solid var(--ln);justify-content:space-between;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.bar{flex:1;height:8px;background:var(--ln);border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .3s}
+main{max-width:880px;margin:0 auto;padding:18px 16px 90px}
+h1{font-size:2.1rem;line-height:1.3;margin:.2em 0 .6em}
+.tag{color:var(--mut);font-size:.85em}
+button{font:inherit;cursor:pointer;border:2px solid var(--pri);background:transparent;color:var(--ink);border-radius:14px;padding:10px 22px}
+button:disabled{cursor:default}
+#pv:disabled,#nx:disabled{opacity:.4}
+button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.pri{background:var(--pri);color:var(--bg)}
+.q{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:12px 14px;margin:10px 0}
+.o{margin:4px 6px 4px 0}
+.o.ok,.m{background:var(--ok)!important;border-color:var(--ok)!important;color:#fff!important}
+.o.bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.o.dis{opacity:.5}
+.sel{background:var(--acc)!important;border-color:var(--acc)!important;color:#222!important}
+.scene{font-size:4rem;text-align:center;padding:14px;background:var(--card);border-radius:14px}
+.say{font-weight:700;color:var(--pri)}
+.w{cursor:pointer;border-radius:6px;padding:0 2px}
+.w:hover{background:var(--ln)}
+.w.hit{background:var(--ok);color:#fff}
+.w.x{background:var(--bad);color:#fff}
+.chip{display:inline-block;background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:3px 14px;margin:4px}
+.chip small{color:var(--mut)}
+details{margin:12px 0;border-radius:12px;padding:8px 14px}
+.help{background:color-mix(in srgb,var(--acc) 18%,var(--card));border:1px solid var(--acc)}
+summary{cursor:pointer;font-weight:700}
+input,textarea{font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--ln);border-radius:10px;padding:6px 10px;width:min(100%,340px)}
+textarea{width:100%;min-height:180px}
+.row{display:flex;gap:8px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.lab{min-width:150px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cols button{width:100%;margin:4px 0}
+.big{font-size:4rem;font-weight:800;color:var(--pri);margin:0}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+td{padding:4px 8px;border-bottom:1px solid var(--ln)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header><b>Sprinter A · C4</b><div class="bar"><i id="pg"></i></div><span id="sc"></span></header>
+<main id="m"></main>
+<footer><button id="pv">Back</button><span id="ct" class="tag"></span><button id="nx" class="pri">Next</button></footer>
+<script>
+const TEACHER_WA=""; // isi nomor WhatsApp guru, contoh "628123456789" (kosong = siswa pilih kontak sendiri)
+const P="Hi! I’m Vivian. I’m twelve years old. My room is messy and untidy. My clothes are on my bed, and some of them are dirty. I love shoes! I have new shoes. They are cheap. I also have expensive shoes, but they are old. My aunt says, “Vivian, tidy up your room!” Then I tidy it up.";
+const S=[
+{id:"start",k:"start"},
+{id:"warm",k:"quiz",sec:"Warmer · 3 min",h:"Look at the picture",scene:"🛏️ 👕 🧦 👟 🧸",say:"Say it aloud: dirty clothes · clean bed · messy room · small drawer · blue shirt",
+ qs:[["What place is it?","A bedroom","A kitchen","A classroom"],["Which word describes a room with things everywhere?","messy","clean","small"]],
+ help:{c:"Look at the bed and the clothes. Where do we sleep?",v:[["bedroom","kamar tidur"],["clothes","pakaian"],["drawer","laci"],["messy","berantakan"],["shirt","kemeja"]]}},
+{id:"opp",k:"match",sec:"Opposites · 4 min",h:"Match the opposites",pairs:[["clean","dirty"],["big","small"],["old","new"],["cheap","expensive"]],
+ help:{c:"Opposite = lawan kata, artinya berlawanan. Example: hot ↔ cold, happy ↔ sad.",f:"The shirt is clean. The shoe is old.",v:[["opposite","lawan kata"],["clean","bersih"],["dirty","kotor"],["cheap","murah"],["expensive","mahal"]]}},
+{id:"guess",k:"quiz",sec:"Guess the adjective · 6 min",h:"Which adjective?",
+ qs:[["Something that is not new","Old","Cheap","Small"],["Something that is not clean","Dirty","Big","New"],["Something that is not small","Big","Old","Clean"],["Something that is not old","New","Dirty","Small"],["Something that is not big","Small","Clean","Expensive"],["Something that costs very little money","Cheap","Old","Big"],["Something that costs a lot of money","Expensive","Small","Dirty"],["Something that is not dirty","Clean","Cheap","Old"]],
+ help:{c:"Adjectives describe people, places and things. Think of the opposite word, then choose.",f:"A house is big. A pencil is small. A gold ring is expensive.",v:[["not","bukan / tidak"],["costs","harganya"],["money","uang"],["a lot","banyak"],["very little","sangat sedikit"]]}},
+{id:"read",k:"tap",sec:"Reading: Vivian’s room · 5 min",h:"Vivian’s room",txt:P,adj:["messy","untidy","dirty","new","cheap","expensive","old"],
+ help:{c:"Adjectives often come after is / are (My room is messy) or before a noun (new shoes). Read slowly, one sentence at a time.",v:[["untidy","tidak rapi"],["tidy up","merapikan"],["aunt","bibi"],["shoes","sepatu"],["adjective","kata sifat"]]}},
+{id:"task",k:"quiz",sec:"Reading task · 6 min",h:"Answer about Vivian",pre:P,
+ qs:[["How old is Vivian?","12","10","14"],["Where does Vivian put her clothes?","On her bed","In the drawer","On the floor"],["What does Vivian like?","Shoes","Books","Cats"],["What shoes does Vivian have?","Both cheap and expensive shoes","Only cheap shoes","Only expensive shoes"],["When will Vivian tidy up her room?","When her aunt tells her to","Never","Tomorrow night"]],
+ help:{c:"Find the key word from the question in the text, then read the sentence next to it. Example: “How old…?” → look for “years old”.",f:"Vivian is ___ years old. Vivian puts her clothes on ___.",v:[["both","keduanya"],["only","hanya"],["never","tidak pernah"],["tomorrow","besok"]]}},
+{id:"noun",k:"noun",sec:"Find the nouns · 4 min",h:"Adjective + noun",items:[["old"],["big"],["dirty"],["new"],["cheap"]],
+ help:{c:"A noun is a name of a thing, animal or person. Pattern: adjective + noun. Use “an” before a vowel sound.",f:"an old book · a big elephant · dirty shoes · a new phone · a cheap watch",v:[["noun","kata benda"],["book","buku"],["elephant","gajah"],["phone","ponsel"],["watch","jam tangan"]]}},
+{id:"tf",k:"quiz",fix:1,sec:"True or false · 3 min",h:"True or false?",
+ qs:[["Old means new.","False","True"],["Dirty means not clean.","True","False"],["Big means small.","False","True"],["New means recently made.","True","False"],["Small means not big.","True","False"]],
+ help:{c:"Say the opposite pair in your head: old ↔ new, big ↔ small. If the sentence says they are the same, it is false.",v:[["true","benar"],["false","salah"],["means","artinya"],["recently","baru saja"]]}},
+{id:"fill",k:"quiz",sec:"Fill in the blank · 5 min",h:"Choose the best word",
+ qs:[["My grandfather’s watch is very ___. It is 60 years old.","old","new","small"],["A gold ring is ___. It costs a lot of money.","expensive","cheap","small"],["My shirt is ___ after I wash it.","clean","dirty","old"],["An elephant is ___, but an ant is small.","big","new","cheap"],["These shoes are only 10,000 rupiah. They are ___.","cheap","expensive","big"]],
+ help:{c:"Read the whole sentence and find the clue: “60 years old” → old; “costs a lot” → expensive; “after I wash it” → clean.",f:"My room is clean. My shoes are new.",v:[["wash","mencuci"],["gold ring","cincin emas"],["costs","harganya"],["rupiah","rupiah"]]}},
+{id:"spell",k:"spell",sec:"Spelling focus · 4 min",h:"Fix the spelling",items:[["nu","new"],["smawl","small"],["cheep","cheap"],["expensiv","expensive"],["cleen","clean"]],
+ help:{c:"The word sounds right but does not look right. Tips: “clean” and “cheap” use ea. “small” has all. “expensive” ends with -ive. “new” ends with w.",v:[["spelling","ejaan"],["correct","benar"],["sounds","terdengar"],["looks","terlihat"]]}},
+{id:"role",k:"role",sec:"Donating clothes · 12 min",h:"Talk about donating clothes",
+ sc:"You and your friend are talking about donating clothes.",adj:["old","new","expensive","cheap"],
+ ex:"<b>Reza:</b> Made, have you ever thought about donating your old clothes?<br><b>Made:</b> Hmm, maybe? I think I have some clothes that I rarely use.<br><b>Reza:</b> I think we can donate it, or sell it? It won’t be expensive, though.",
+ help:{c:"Write 4 to 6 lines with your teacher. Use all four adjectives. Say your lines aloud!",f:"Have you ever donated clothes? · I have some old clothes. · This shirt is new, but it is small. · These shoes are cheap, so I can sell them. · Let’s donate them!",v:[["donate","menyumbangkan"],["sell","menjual"],["rarely","jarang"],["maybe","mungkin"],["I think…","menurutku…"],["too small","terlalu kecil"],["charity","amal"]]}},
+{id:"ccq",k:"quiz",sec:"Consolidation · 3 min",h:"Last check",
+ qs:[["What makes something expensive?","It costs a lot","It is old","It is dirty"],["Which animal matches the adjective “big”?","Elephant","Bee","Ant"]],
+ help:{c:"Think about price for the first question and size for the second.",v:[["costs","harganya"],["animal","hewan"],["matches","cocok dengan"]]}},
+{id:"end",k:"end"}];
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+const sh=a=>{a=[...a];for(let n=a.length;n>1;){const j=Math.random()*n--|0;[a[n],a[j]]=[a[j],a[n]]}return a};
+const $=q=>document.querySelector(q),m=$("#m");
+let st={name:"",a:{}},i=0,sel=null,note="";const ord={};
+try{st=JSON.parse(localStorage.getItem("spC4"))||st}catch(e){}
+const save=()=>{try{localStorage.setItem("spC4",JSON.stringify(st))}catch(e){}};
+const ok=(x,n)=>(x.k=="noun"?(n||"").trim():(n||"").trim().toLowerCase()==x.items[0][1]);
+function sc(s){const a=st.a[s.id];if(!a)return 0;
+ if(s.k=="quiz")return s.qs.filter((q,n)=>a[n]===q[1]).length;
+ if(s.k=="match")return a.length;
+ if(s.k=="tap")return a.hit.length;
+ if(s.k=="spell"||s.k=="noun")return a.ok?s.items.filter((x,n)=>{const v=((a.v||[])[n]||"").trim();return s.k=="noun"?v:v.toLowerCase()==x[1]}).length:0;
+ if(s.k=="role")return a.r||0;return 0}
+const mx=s=>s.k=="quiz"?s.qs.length:s.k=="match"?s.pairs.length:s.k=="tap"?s.adj.length:(s.k=="spell"||s.k=="noun")?s.items.length:s.k=="role"?5:0;
+const MX=S.reduce((t,s)=>t+mx(s),0),tot=()=>S.reduce((t,s)=>t+sc(s),0);
+const hp=h=>h?`<details class="help"><summary>💡 Need help?</summary>${h.c?`<p>${h.c}</p>`:""}${h.f?`<p><b>Try this:</b> ${h.f}</p>`:""}${h.v?`<p>${h.v.map(x=>`<span class="chip">${x[0]} <small>${x[1]}</small></span>`).join("")}</p>`:""}</details>`:"";
+function body(s){const a=st.a[s.id];
+ if(s.k=="start")return `<p>Write your name, then tap <b>Next</b>. Answer each task and watch your ⭐ score at the top.</p><div class="row"><input id="nm" placeholder="Your name" value="${esc(st.name)}" autocomplete="name"></div><p class="tag">Today: describing clothes with clean, dirty, big, small, old, new, cheap, expensive. Tap “💡 Need help?” anytime.</p>`;
+ if(s.k=="quiz")return (s.scene?`<div class="scene">${s.scene}</div><p class="say">${s.say}</p>`:"")+(s.pre?`<div class="q">${s.pre}</div>`:"")+s.qs.map((q,n)=>{const c=a&&a[n],o=ord[s.id+n]||(ord[s.id+n]=s.fix?["True","False"]:sh(q.slice(1)));return `<div class="q"><b>${n+1}. ${q[0]}</b><br>${o.map(t=>`<button class="o ${c==null?"":t==q[1]?"ok":t==c?"bad":"dis"}" data-a="q" data-n="${n}" data-t="${esc(t)}" ${c==null?"":"disabled"}>${t}</button>`).join("")}</div>`}).join("");
+ if(s.k=="match"){const d=a||[],R=ord[s.id]||(ord[s.id]=sh(s.pairs.map(p=>p[1])));return `<p>Tap a word, then tap its opposite.</p><div class="cols"><div>${s.pairs.map(p=>`<button data-a="l" data-w="${p[0]}" class="${d.includes(p[0])?"m":sel==p[0]?"sel":""}">${p[0]}</button>`).join("")}</div><div>${R.map(w=>`<button data-a="r" data-w="${w}" class="${s.pairs.some(p=>p[1]==w&&d.includes(p[0]))?"m":""}">${w}</button>`).join("")}</div></div><p class="tag">${note}</p>`}
+ if(s.k=="tap"){const h=(a&&a.hit)||[];return `<p>Tap the <b>adjectives</b> in the text. Found: <b>${h.length}/${s.adj.length}</b></p><div class="q" style="line-height:2">${s.txt.replace(/[A-Za-z’]+/g,w=>`<span class="w ${h.includes(w.toLowerCase())?"hit":""}" data-a="t" data-w="${w.toLowerCase()}">${w}</span>`)}</div>`}
+ if(s.k=="spell"||s.k=="noun"){const c=a&&a.ok;return (s.k=="noun"?"<p>Write a noun for each adjective. Example: old → <i>book</i></p>":"<p>Write the correct spelling.</p>")+s.items.map((x,n)=>{const v=((a&&a.v)||[])[n]||"";return `<div class="row"><span class="lab">${s.k=="noun"?x[0]+" +":x[0]+" →"}</span><input data-n="${n}" value="${esc(v)}" ${c?"disabled":""} autocomplete="off" autocapitalize="none">${c?(ok(s.k=="noun"?{k:"noun"}:{items:[x]},v)?"✅":`❌ <b>${x[1]||""}</b>`):""}</div>`}).join("")+(c?"":`<button class="pri" data-a="chk">Check ✔</button>`)}
+ if(s.k=="role")return `<div class="q"><b>Scenario:</b> ${s.sc}</div><div class="q">${s.ex}</div><p>Use: ${s.adj.map(w=>`<span class="chip">${w}</span>`).join("")}</p><textarea id="tx" placeholder="Write your short conversation here…">${esc((a&&a.text)||"")}</textarea><p><b>Teacher score</b> (teacher taps): ${[0,1,2,3,4,5].map(r=>`<button class="o ${a&&a.r===r?"m":""}" data-a="rate" data-r="${r}">${r}</button>`).join("")}</p>`;
+ if(s.k=="end")return `<p class="big">⭐ ${tot()} / ${MX}</p><p>${st.name?esc(st.name)+", great":"Great"} job today!</p><table>${S.filter(mx).map(x=>`<tr><td>${x.sec.split(" ·")[0]}</td><td>${sc(x)} / ${mx(x)}</td></tr>`).join("")}</table><div class="row"><button class="pri" data-a="wa">Send result to teacher</button><button data-a="cp">Copy result</button><button data-a="rs">Start over</button></div>`;
+ return ""}
+function render(){const s=S[i],op=[...m.querySelectorAll("details")].map(x=>x.open);
+ m.innerHTML=(s.sec?`<div class="tag">${s.sec}</div>`:"")+`<h1>${s.h||(s.k=="start"?"Sprinter A · Unit C · Lesson 4":"Your result")}</h1>`+body(s)+hp(s.help);
+ m.querySelectorAll("details").forEach((x,n)=>x.open=!!op[n]);
+ $("#pg").style.width=i/(S.length-1)*100+"%";$("#ct").textContent=i+1+" / "+S.length;$("#pv").disabled=!i;$("#nx").disabled=i==S.length-1;$("#sc").textContent="⭐ "+tot()+" / "+MX}
+function rep(){let t=`Sprinter A · Unit C · Lesson 4\nName: ${st.name||"-"}\nScore: ${tot()}/${MX}\n`;S.forEach(x=>{if(mx(x))t+=`${x.sec.split(" ·")[0]}: ${sc(x)}/${mx(x)}\n`});const n=st.a.noun,r=st.a.role;if(n&&n.v)t+=`Phrases: ${n.v.filter(Boolean).join(", ")}\n`;if(r&&r.text)t+=`Dialogue: ${r.text}\n`;return t}
+m.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const s=S[i],d=b.dataset,A=d.a,g=()=>st.a[s.id];
+ if(A=="q"){const a=st.a[s.id]=g()||[];if(a[d.n]!=null)return;a[d.n]=d.t}
+ else if(A=="l"){sel=d.w;note=""}
+ else if(A=="r"){if(!sel)return;const p=s.pairs.find(p=>p[0]==sel);if(p[1]==d.w){(st.a[s.id]=g()||[]).push(sel);note=""}else note="Not a pair. Try again!";sel=null}
+ else if(A=="t"){const a=st.a[s.id]=g()||{hit:[],miss:0};if(s.adj.includes(d.w)){if(!a.hit.includes(d.w))a.hit.push(d.w)}else{a.miss++;b.classList.add("x");setTimeout(()=>b.classList.remove("x"),500);save();return}}
+ else if(A=="chk")(st.a[s.id]=g()||{v:[]}).ok=1;
+ else if(A=="rate")(st.a[s.id]=g()||{}).r=+d.r;
+ else if(A=="cp"){if(navigator.clipboard)navigator.clipboard.writeText(rep());b.textContent="Copied ✔";return}
+ else if(A=="wa"){window.open("https://wa.me/"+TEACHER_WA+"?text="+encodeURIComponent(rep()),"_blank");return}
+ else if(A=="rs"){if(confirm("Start over?")){st={name:"",a:{}};save();i=0;render();scrollTo(0,0)}return}
+ save();render()};
+m.oninput=e=>{const t=e.target,s=S[i];
+ if(t.id=="nm")st.name=t.value;
+ else if(t.id=="tx")(st.a[s.id]=st.a[s.id]||{}).text=t.value;
+ else if(t.dataset.n!=null){const a=st.a[s.id]=st.a[s.id]||{v:[]};a.v=a.v||[];a.v[t.dataset.n]=t.value}
+ save()};
+const go=d=>{i=Math.max(0,Math.min(S.length-1,i+d));render();scrollTo(0,0)};
+$("#pv").onclick=()=>go(-1);$("#nx").onclick=()=>go(1);
+document.onkeydown=e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key=="ArrowRight")go(1);if(e.key=="ArrowLeft")go(-1)};
+render();
+</script></body></html>
